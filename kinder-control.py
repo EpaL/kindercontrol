@@ -17,7 +17,7 @@ rule_prefix = "KinderControl"
 
 # check args exist
 if(len(sys.argv) < 4):
-    print('usage: ' + sys.argv[0] + ' <host> <apikey> <apisecret>')
+    print('usage: ' + sys.argv[0] + ' <host> <apikey> <apisecret> <rule category> <enable|disable>')
     sys.exit(1)
 
 # config
@@ -47,3 +47,6 @@ for rule in filters['rule']:
 
 # Push the config back to pfSense
 filters = FauxapiLib.config_set(filters, 'filter')
+
+# Reload the config
+FauxapiLib.send_event("filter reload")
